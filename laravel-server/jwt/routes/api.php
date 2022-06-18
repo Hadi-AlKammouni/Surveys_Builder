@@ -14,6 +14,7 @@ Route::group(['prefix' => 'v1'], function(){
         Route::group(['middleware' => 'role.admin'], function(){
             Route::get('/admin_test', [AdminController::class, 'adminTest']);
             Route::post('/add_survey', [AdminController::class, 'addSurvey']);
+            Route::post('/add_question', [AdminController::class, 'addQuestion']);
         });
     });
     
