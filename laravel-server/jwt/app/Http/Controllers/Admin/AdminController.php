@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Survey;
 use App\Models\Question;
+use App\Models\Option;
 
 class AdminController extends Controller
 {
@@ -37,6 +38,21 @@ class AdminController extends Controller
         $question->question = $request->question;
 
         $question->save();
+        
+        return response()->json([
+            "status" => "Success"
+        ], 200);
+
+    }
+
+    // Function to add option to the db
+    public function addOption(Request $request){
+        // echo "add";
+        $option = new Option;
+        $option->question_id = $request->question_id;
+        $option->option = $request->option;
+
+        $option->save();
         
         return response()->json([
             "status" => "Success"

@@ -15,6 +15,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/admin_test', [AdminController::class, 'adminTest']);
             Route::post('/add_survey', [AdminController::class, 'addSurvey']);
             Route::post('/add_question', [AdminController::class, 'addQuestion']);
+            Route::post('/add_option', [AdminController::class, 'addOption']);
         });
     });
     
