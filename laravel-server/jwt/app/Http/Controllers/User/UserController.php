@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Survey;
+use App\Models\Question;
 
 class UserController extends Controller
 {
@@ -19,6 +20,16 @@ class UserController extends Controller
         return response()->json([
             "status" => "Success",
             "items" => $surveys
+        ], 200);
+    }
+
+    public function getQuestions(){
+
+        $questions = Question::with("options") -> get();
+
+        return response()->json([
+            "status" => "Success",
+            "items" => $questions
         ], 200);
     }
     
