@@ -21,7 +21,7 @@ Route::group(['prefix' => 'v1'], function(){
 
     Route::group(['prefix' => 'user'], function(){
         // Route::group(['middleware' => 'user.admin'], function(){
-            Route::get('/user_test', [UserController::class, 'userTest']);
+            Route::get('/get_surveys', [UserController::class, 'getSurveys']);
         // });
     });
     
