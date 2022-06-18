@@ -11,6 +11,7 @@ use App\Http\Controllers\TestController;
 Route::group(['prefix' => 'v1'], function(){
     
     Route::get('/admin_test', [AdminController::class, 'adminTest']);
+    Route::post('/add_survey', [AdminController::class, 'addSurvey']);
 
     // Function called when not an "Unauthorized" user tried to reach a specific page
     Route::get('/not_found', [TestController::class, 'notFound'])->name("not-found");
