@@ -18,6 +18,12 @@ Route::group(['prefix' => 'v1'], function(){
             Route::post('/add_option', [AdminController::class, 'addOption']);
         });
     });
+
+    Route::group(['prefix' => 'user'], function(){
+        // Route::group(['middleware' => 'user.admin'], function(){
+            Route::get('/user_test', [UserController::class, 'userTest']);
+        // });
+    });
     
     // Function called when not an "Unauthorized" user tried to reach a specific page
     Route::get('/not_found', [TestController::class, 'notFound'])->name("not-found");
