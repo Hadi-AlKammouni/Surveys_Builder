@@ -38,10 +38,11 @@ class JWTController extends Controller
         }
 
         $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_type' => 0
+        ]);
 
         return response()->json([
             'message' => 'User successfully registered',
@@ -69,7 +70,12 @@ class JWTController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json([
+            'status' => 'success',
+            'user_id' => auth()->user()->id,
+            'name' => auth()->user()->name,
+            'access_token' => $token
+        ],200);
     }
 
     /**
