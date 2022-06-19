@@ -19,7 +19,7 @@ class UserController extends Controller
 
         return response()->json([
             "status" => "Success",
-            "items" => $surveys
+            "surveys" => $surveys
         ], 200);
     }
 
@@ -29,7 +29,7 @@ class UserController extends Controller
 
         return response()->json([
             "status" => "Success",
-            "items" => $questions
+            "questions" => $questions
         ], 200);
     }
     
