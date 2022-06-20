@@ -35,6 +35,7 @@ function App() {
     <BrowserRouter>
       <div className="container">
         <Header
+        title={"Survey Manager"}
         onAdd={() => {
           setShowAddSurvey(!showAddSurvey);
         }}
