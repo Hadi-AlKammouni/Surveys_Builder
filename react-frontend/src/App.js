@@ -39,15 +39,19 @@ function App() {
           setShowAddSurvey(!showAddSurvey);
         }}
         showAdd={showAddSurvey}/>
-        <div>
-          
-          {surveys.length > 0 ? (
-            <Surveys surveys={surveys} />
-          ) : (
-            "No surveys found"
-          )}
-                
-        </div>
+        <Routes>
+          <Route path="/" element={
+            <>
+              {surveys.length > 0 ? (
+                <Surveys surveys={surveys} />
+              ) : (
+                "No surveys found"
+              )}
+            </>}
+          ></Route> 
+          <Route path="/about" element={<About />}></Route>
+        </Routes>
+        
       </div>
   </BrowserRouter>
   );
