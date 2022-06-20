@@ -6,13 +6,16 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 import Login from "./components/Login";
 import AddSurvey from "./components/AddSurvey";
+import AddQuestion from "./components/AddQuestion";
 
 function App() {
 
   // Initialize State
   const [surveys, setSurveys] = useState([]); 
+  const [questions, setQuestions] = useState([]); 
   const [showLogin, setShowLogin] = useState(false);
   const [showAddSurvey, setShowAddSurvey] = useState(false);
+  const [showAddQuestion, setShowAddQuestion] = useState(false);
 
   // Initialize all surveys into state from backend at component load
   useEffect(() => {
@@ -63,6 +66,20 @@ function App() {
     setSurveys([...surveys, data]);
   };
 
+  //Adding a question
+  const addQuestion = async (question) => {
+    const res = await fetch("http://127.0.0.1:8000/api/v1/admin/add_question", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      },
+      body: JSON.stringify(question),
+    });
+    const data = await res.json();
+    setQuestions([...questions, data]);
+  };
+
   return (
     <BrowserRouter>
       <div className="container">
@@ -74,13 +91,19 @@ function App() {
         onAddSurvey={() => {
           setShowAddSurvey(!showAddSurvey);
         }}
+        onAddQuestion={() => {
+          setShowAddQuestion(!showAddQuestion);
+        }}
         showAddS={showAddSurvey}
-        showAddL={showLogin}/>
+        showAddL={showLogin}
+        showAddQ={showAddQuestion}
+        />
         <Routes>
           <Route path="/" element={
             <>
               {showLogin && <Login onLogin={login} />}
               {showAddSurvey && <AddSurvey onAddSurvey={addSurvey} />}
+              {showAddQuestion && <AddQuestion onAddQuestion={addQuestion} />}
               {surveys.length > 0 ? (
                 <Surveys surveys={surveys} />
               ) : (
