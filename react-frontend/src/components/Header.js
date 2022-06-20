@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Button from "./Button";
 
 
-const Header = ({ onAdd, showAdd, title }) => {
+const Header = ({ onLogin, showAdd, title }) => {
     const location = useLocation();
     return (
         <header className='header'>
@@ -13,7 +13,7 @@ const Header = ({ onAdd, showAdd, title }) => {
                 <Button
                     color={showAdd ? "red" : "green"}
                     text={showAdd ? "Close" : "Login"}
-                    onClick={onAdd} />
+                    onClick={onLogin} />
                 <Button
                     color={showAdd ? "red" : "green"}
                     text={showAdd ? "Close" : "➕Survey"}

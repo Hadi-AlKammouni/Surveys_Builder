@@ -52,14 +52,14 @@ function App() {
       <div className="container">
         <Header
         title={"Survey Manager"}
-        onAdd={() => {
+        onLogin={() => {
           setShowAddSurvey(!showAddSurvey);
         }}
         showAdd={showAddSurvey}/>
         <Routes>
           <Route path="/" element={
             <>
-              {showAddSurvey && <Login onAdd={login} />}
+              {showAddSurvey && <Login onLogin={login} />}
               {surveys.length > 0 ? (
                 <Surveys surveys={surveys} />
               ) : (
