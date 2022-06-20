@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import Surveys from "./components/Surveys";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import About from "./components/About";
 
 function App() {
 
   // Initialize State
   const [surveys, setSurveys] = useState([]); 
+  const [showAddSurvey, setShowAddSurvey] = useState(false);
 
   // Initialize all surveys into state from backend at component load
   useEffect(() => {
@@ -27,16 +32,24 @@ function App() {
     }
   
   return (
-   <div>
-    
-      {surveys.length > 0 ? (
-        <Surveys surveys={surveys} />
-      ) : (
-        "No surveys found"
-      )}
-      
-        
-  </div>
+    <BrowserRouter>
+      <div className="container">
+        <Header
+        onAdd={() => {
+          setShowAddSurvey(!showAddSurvey);
+        }}
+        showAdd={showAddSurvey}/>
+        <div>
+          
+          {surveys.length > 0 ? (
+            <Surveys surveys={surveys} />
+          ) : (
+            "No surveys found"
+          )}
+                
+        </div>
+      </div>
+  </BrowserRouter>
   );
       };
 
