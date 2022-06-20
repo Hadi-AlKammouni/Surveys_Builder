@@ -7,6 +7,7 @@ import About from "./components/About";
 import Login from "./components/Login";
 import AddSurvey from "./components/AddSurvey";
 import AddQuestion from "./components/AddQuestion";
+import Display from "./components/Display";
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
   const fetchSurveys = async () => {
       const res = await fetch("http://127.0.0.1:8000/api/v1/user/get_surveys_questions");
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       return data;
       
     }
@@ -80,6 +81,14 @@ function App() {
     setQuestions([...questions, data]);
   };
 
+  //Fetch questions of a survey from Backend
+  const DisplaySurvey = async (survey_id) => {
+    const res = await fetch("http://127.0.0.1:8000/api/v1/user/get_questions_options/"+survey_id);
+    const data = await res.json();
+    console.log(data.questions);
+    return data.questions;
+  }
+  
   return (
     <BrowserRouter>
       <div className="container">
@@ -105,12 +114,13 @@ function App() {
               {showAddSurvey && <AddSurvey onAddSurvey={addSurvey} />}
               {showAddQuestion && <AddQuestion onAddQuestion={addQuestion} />}
               {surveys.length > 0 ? (
-                <Surveys surveys={surveys} />
+                <Surveys surveys={surveys} display={DisplaySurvey}/>
               ) : (
                 "No surveys found"
               )}
             </>}
-          ></Route> 
+          ></Route>
+          <Route path="/display" element={<Display/>}></Route> 
           <Route path="/about" element={<About />}></Route>
         </Routes>
         <Footer />

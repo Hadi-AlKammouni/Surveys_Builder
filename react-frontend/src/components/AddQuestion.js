@@ -14,7 +14,7 @@ const AddQuestion = ({ onAddQuestion }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!survey_id || !question_type || !question) {
-      alert("Please fill all fields!");
+      alert("Please fill first three fields!");
       return;
     }
     onAddQuestion({ survey_id, question_type, question});
@@ -26,7 +26,7 @@ const AddQuestion = ({ onAddQuestion }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Surevey ID</label>
+        <label>Survey ID</label>
         <input
           type="text"
           placeholder={"Insert Survey ID"}
@@ -78,7 +78,7 @@ const AddQuestion = ({ onAddQuestion }) => {
         <input
           type="text"
           placeholder={"Insert Option 2"}
-          value={option1}
+          value={option2}
           onChange={(e) => {
             setOption2(e.target.value);
           }}
@@ -88,7 +88,7 @@ const AddQuestion = ({ onAddQuestion }) => {
         <input
           type="text"
           placeholder={"Insert Option 3"}
-          value={option1}
+          value={option3}
           onChange={(e) => {
             setOption3(e.target.value);
           }}
