@@ -5,11 +5,13 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Login from "./components/Login";
+import AddSurvey from "./components/AddSurvey";
 
 function App() {
 
   // Initialize State
   const [surveys, setSurveys] = useState([]); 
+  const [showLogin, setShowLogin] = useState(false);
   const [showAddSurvey, setShowAddSurvey] = useState(false);
 
   // Initialize all surveys into state from backend at component load
@@ -47,19 +49,38 @@ function App() {
     return data;
   };
 
+  //Adding a survey
+  const addSurvey = async (survey) => {
+    const res = await fetch("http://127.0.0.1:8000/api/v1/admin/add_survey", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      },
+      body: JSON.stringify(survey),
+    });
+    const data = await res.json();
+    setSurveys([...surveys, data]);
+  };
+
   return (
     <BrowserRouter>
       <div className="container">
         <Header
         title={"Survey Manager"}
         onLogin={() => {
+          setShowLogin(!showLogin);
+        }}
+        onAddSurvey={() => {
           setShowAddSurvey(!showAddSurvey);
         }}
-        showAdd={showAddSurvey}/>
+        showAddS={showAddSurvey}
+        showAddL={showLogin}/>
         <Routes>
           <Route path="/" element={
             <>
-              {showAddSurvey && <Login onLogin={login} />}
+              {showLogin && <Login onLogin={login} />}
+              {showAddSurvey && <AddSurvey onAddSurvey={addSurvey} />}
               {surveys.length > 0 ? (
                 <Surveys surveys={surveys} />
               ) : (
