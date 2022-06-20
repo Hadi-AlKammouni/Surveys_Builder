@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import Login from "./components/Login";
 
 function App() {
 
@@ -31,6 +32,21 @@ function App() {
       
     }
   
+  //Calling login api to be used by the admin inorder to add to the db
+  const login = async (info) => {
+    const res = await fetch("http://localhost:8000/api/login",{
+      method: "POST",
+      headers:{
+        "Content-Type" : "application/json",
+      },
+      body: JSON.stringify(info)
+    });
+    const data = await res.json();
+    // console.log(data);
+    localStorage.setItem("access_token",data.access_token)
+    return data;
+  };
+
   return (
     <BrowserRouter>
       <div className="container">
@@ -43,6 +59,7 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
+              {showAddSurvey && <Login onAdd={login} />}
               {surveys.length > 0 ? (
                 <Surveys surveys={surveys} />
               ) : (
