@@ -36,6 +36,9 @@ class AdminController extends Controller
         $question->survey_id = $request->survey_id;
         $question->question_type = $request->question_type;
         $question->question = $request->question;
+        $question->option1 = $request->option1;
+        $question->option2 = $request->option2;
+        $question->option3 = $request->option3;
 
         $question->save();
         

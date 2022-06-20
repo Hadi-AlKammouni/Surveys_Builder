@@ -18,6 +18,9 @@ class CreateQuestionsTable extends Migration
             $table->integer("survey_id");
             $table->string("question_type");
             $table->string("question");
+            $table->string("option1")-> nullable();
+            $table->string("option2")-> nullable();
+            $table->string("option3")-> nullable();
             $table->timestamps();
         });
     }
