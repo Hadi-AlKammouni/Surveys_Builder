@@ -25,10 +25,12 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function getQuestions(){
-
-        $questions = Question::with("options") -> get();
-
+    public function getQuestions($survey_id = null){
+        if ($survey_id != null){
+            $questions = Question::with("options") -> where('survey_id','=',$survey_id) -> get();
+        }else{
+            $questions = Question::with("options") ->  get();
+        }
         return response()->json([
             "status" => "Success",
             "questions" => $questions
