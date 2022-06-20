@@ -13,10 +13,12 @@ class UserController extends Controller
         echo "user is here";
     }
 
-    public function getSurveys(){
-
-        $surveys = Survey::with("questions") -> get();
-
+    public function getSurveys($survey_id = null){
+        if ($survey_id != null){
+            $surveys = Survey::with("questions") -> where('survey_id','=',$survey_id) -> get();
+        }else{
+            $surveys = Survey::with("questions") -> get();
+        }
         return response()->json([
             "status" => "Success",
             "surveys" => $surveys
