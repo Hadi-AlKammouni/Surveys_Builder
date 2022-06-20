@@ -5,6 +5,9 @@ const AddQuestion = ({ onAddQuestion }) => {
   const [survey_id, setId] = useState("");
   const [question_type, setQuestionType] = useState("");
   const [question, setQuestion] = useState("");
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
+  const [option3, setOption3] = useState("");
 
 
   //Add Data to Backend on Submit
@@ -58,6 +61,39 @@ const AddQuestion = ({ onAddQuestion }) => {
         />
       </div>
 
+      <h2>Filling the following fields is optional / They will be taken into consideration only if the question type is radio or checkbox</h2>
+      <div className="form-control">
+        <label>Option 1</label>
+        <input
+          type="text"
+          placeholder={"Insert Option 1"}
+          value={option1}
+          onChange={(e) => {
+            setOption1(e.target.value);
+          }}
+        />
+      </div>
+      <div className="form-control">
+        <label>Option 2</label>
+        <input
+          type="text"
+          placeholder={"Insert Option 2"}
+          value={option1}
+          onChange={(e) => {
+            setOption2(e.target.value);
+          }}
+        />
+      </div><div className="form-control">
+        <label>Option 3</label>
+        <input
+          type="text"
+          placeholder={"Insert Option 3"}
+          value={option1}
+          onChange={(e) => {
+            setOption3(e.target.value);
+          }}
+        />
+      </div>
       <input type={"submit"} value="Add Question" className="btn btn-block" />
     </form>
   );
