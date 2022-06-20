@@ -7,12 +7,13 @@ import About from "./components/About";
 import Login from "./components/Login";
 import AddSurvey from "./components/AddSurvey";
 import AddQuestion from "./components/AddQuestion";
-import Display from "./components/Display";
+import View from "./components/View";
 
 function App() {
 
   // Initialize State
   const [surveys, setSurveys] = useState([]); 
+  const [details, setDetails] = useState([]); 
   const [questions, setQuestions] = useState([]); 
   const [showLogin, setShowLogin] = useState(false);
   const [showAddSurvey, setShowAddSurvey] = useState(false);
@@ -22,7 +23,7 @@ function App() {
   useEffect(() => {
     const getSurveys = async () => {
       const surveysFromServer = await fetchSurveys();
-      console.log(surveysFromServer.surveys);
+      // console.log(surveysFromServer.surveys);
       setSurveys(surveysFromServer.surveys);
     };
     getSurveys();
@@ -31,12 +32,12 @@ function App() {
 
   //Fetch All surveys from Backend
   const fetchSurveys = async () => {
-      const res = await fetch("http://127.0.0.1:8000/api/v1/user/get_surveys_questions");
-      const data = await res.json();
-      // console.log(data);
-      return data;
+    const res = await fetch("http://127.0.0.1:8000/api/v1/user/get_surveys_questions");
+    const data = await res.json();
+    // console.log(data);
+    return data;
       
-    }
+  }
   
   //Calling login api to be used by the admin inorder to add to the db
   const login = async (info) => {
@@ -86,48 +87,41 @@ function App() {
     const res = await fetch("http://127.0.0.1:8000/api/v1/user/get_questions_options/"+survey_id);
     const data = await res.json();
     console.log(data.questions);
-    return data.questions;
+    setDetails([...details, data.questions]);
+    // return data;
   }
   
   return (
     <BrowserRouter>
       <div className="container">
-        <Header
-        title={"Survey Manager"}
-        onLogin={() => {
-          setShowLogin(!showLogin);
-        }}
-        onAddSurvey={() => {
-          setShowAddSurvey(!showAddSurvey);
-        }}
-        onAddQuestion={() => {
-          setShowAddQuestion(!showAddQuestion);
-        }}
-        showAddS={showAddSurvey}
-        showAddL={showLogin}
-        showAddQ={showAddQuestion}
-        />
-        <Routes>
-          <Route path="/" element={
-            <>
-              {showLogin && <Login onLogin={login} />}
-              {showAddSurvey && <AddSurvey onAddSurvey={addSurvey} />}
-              {showAddQuestion && <AddQuestion onAddQuestion={addQuestion} />}
-              {surveys.length > 0 ? (
-                <Surveys surveys={surveys} display={DisplaySurvey}/>
-              ) : (
-                "No surveys found"
-              )}
-            </>}
-          ></Route>
-          <Route path="/display" element={<Display/>}></Route> 
-          <Route path="/about" element={<About />}></Route>
-        </Routes>
-        <Footer />
+          <Header title={"Survey Manager"}
+            onLogin={() => {setShowLogin(!showLogin)}}
+            onAddSurvey={() => {setShowAddSurvey(!showAddSurvey)}}
+            onAddQuestion={() => {setShowAddQuestion(!showAddQuestion)}}
+            showAddS={showAddSurvey}
+            showAddL={showLogin}
+            showAddQ={showAddQuestion}
+          />
+          <Routes>
+            <Route path="/" element={
+                <>
+                  {showLogin && <Login onLogin={login} />}
+                  {showAddSurvey && <AddSurvey onAddSurvey={addSurvey} />}
+                  {showAddQuestion && <AddQuestion onAddQuestion={addQuestion} />}
+                  {surveys.length > 0 ? (
+                      <Surveys surveys={surveys} display={DisplaySurvey}/>
+                    ) : (
+                      "No surveys found"
+                  )}
+                </>
+            }></Route>
+            <Route path="/view" element={<View details={details}/>}></Route> 
+            <Route path="/about" element={<About />}></Route>
+          </Routes>
+          <Footer />
       </div>
-  </BrowserRouter>
+    </BrowserRouter>
   );
-      };
-
+};
 
 export default App;
