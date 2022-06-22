@@ -14,6 +14,7 @@ const AddSurvey = ({ onAddSurvey }) => {
     }
     onAddSurvey({ survey_title});
     setText("");
+    alert("Survey is created successfully ✅.. You can add questions now")
   };
 
   return (
