@@ -17,10 +17,13 @@ const AddQuestion = ({ onAddQuestion }) => {
       alert("Please fill first three fields!");
       return;
     }
-    onAddQuestion({ survey_id, question_type, question});
+    onAddQuestion({ survey_id, question_type, question, option1, option2, option3});
     setId("");
     setQuestionType("");
     setQuestion("");
+    setOption1("");
+    setOption2("");
+    setOption3("");
   };
 
   return (
