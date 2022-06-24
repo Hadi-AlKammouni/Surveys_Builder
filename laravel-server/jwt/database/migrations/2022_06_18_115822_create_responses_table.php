@@ -14,8 +14,10 @@ class CreateResponsesTable extends Migration
     public function up()
     {
         Schema::create('responses', function (Blueprint $table) {
-            $table->integer("user_id");
-            $table->integer("option_id");
+            $table->id("response_id");
+            $table->integer("survey_id");
+            $table->integer("question_id");
+            $table->string("response");
             $table->timestamps();
         });
     }

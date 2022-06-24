@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Survey;
 use App\Models\Question;
+use App\Models\Response;
 
 class UserController extends Controller
 {
@@ -35,6 +36,21 @@ class UserController extends Controller
             "status" => "Success",
             "questions" => $questions
         ], 200);
+    }
+
+    // Function to add a survey to the db
+    public function answerQuestion(Request $request){
+        $response = new Response;
+        $response->survey_id = $request->survey_id;
+        $response->question_id = $request->question_id;
+        $response->response = $request->response;
+
+        $response->save();
+        
+        return response()->json([
+            "status" => "Success"
+        ], 200);
+
     }
     
 }

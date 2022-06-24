@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1'], function(){
             Route::get('/get_surveys_questions/{survey_id?}', [UserController::class, 'getSurveys']);
             //Route to get questions with options
             Route::get('/get_questions_options/{survey_id?}', [UserController::class, 'getQuestions']);
+            Route::post('/asnwer_question', [UserController::class, 'answerQuestion']);
         // });
     });
     
